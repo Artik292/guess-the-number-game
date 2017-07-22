@@ -20,7 +20,7 @@ echo $secret;
             return $f->error('number', "Please, enter the number.");
           } else {
                   $s = $f->model['number'];
-                  if (ctype_digit($s)) {
+                  //if (ctype_digit($s)) 
                   if ($s == $secret) {
                       return "You win";
                 } elseif ($s < $secret) {
@@ -29,7 +29,7 @@ echo $secret;
                       return "Your number is bigger";
                 }
 
-          }
+
       			//return "Hello $s ";
 			return new \atk4\ui\jsExpression('document.location = "index.php" ');
 		}
