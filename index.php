@@ -3,7 +3,7 @@
 require 'vendor/autoload.php';
 
 $app = new \atk4\ui\App('Guess the number');
-$app->initLayout('centered');
+$app->initLayout('Centered');
 
 $secret = rand(1,128);
 echo $secret;
