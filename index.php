@@ -31,6 +31,6 @@ echo $secret;
 
           }
       			//return "Hello $s ";
-			return new \atk4\ui\jsExpression('document.location = "task.php" ');
+			return new \atk4\ui\jsExpression('document.location = "index.php" ');
 		}
     });
