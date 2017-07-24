@@ -2,6 +2,8 @@
 
 require 'vendor/autoload.php';
 
+//session_start();
+
 use \atk4\ui\Button;
 use \atk4\ui\Buttons;
 use \atk4\ui\Header;
@@ -10,131 +12,64 @@ use \atk4\ui\Label;
 use \atk4\ui\Template;
 use \atk4\ui\View;
 
-$app = new \atk4\ui\App('Guess the number');
+$app = new \atk4\ui\App('Computer will guess the number');
 $app->initLayout('Centered');
 
-//$secret = rand(1,128);
-
-session_start();
-
-if (!isset($_SESSION['game'])) {
-  $secret = rand(1,128);
-  $_SESSION['game'] = $secret;
-  echo $secret;
-} else {
-  $secret = $_SESSION['game'];
-  echo $secret;
+if (!isset($_GET['r'])) {
+  $b = 100;
+  $m = 1;
+  $n =round(($b + $m) / 2);
 }
 
-/*if (isset($_SESSION['n'])) {
-  echo ' '.$_SESSION['n'];
-} */
 
-$button = new Button();
-$button->set('Play again');
-$button->set(['primary'=>true]);
-$button->set(['size big'=>true]);
-$button->link('re.php');
-$app->add($button);
+  /*if (!isset($_GET['m'])) {
+      $a = [];
+      $m_register = new \atk4\data\Model(new \atk4\data\Persistence_Array($a));
+      $m_register->addField('max');
 
-    $a = [];
-    $m_register = new \atk4\data\Model(new \atk4\data\Persistence_Array($a));
-    $m_register->addField('number');
+      $f = $app->add(new \atk4\ui\Form(['segment'=>TRUE]));
+      $f->setModel($m_register);
 
-    $f = $app->add(new \atk4\ui\Form(['segment'=>TRUE]));
-    $f->setModel($m_register);
-
-	  $f->onSubmit(function ($f) use($secret)  {
-        if ($f->model['number'] == '') {
-            return $f->error('number', "Please, enter the number.");
+      $f->onSubmit(function ($f) {
+          if ($f->model['max'] == '') {
+              return $f->error('name', "This place can't be empty.");
           } else {
-                  $s = $f->model['number'];
-                  //$_SESSION['w'] = $s;
-                  //if (ctype_digit($s))
-                  if ($s == $secret) {
-                      //$_SESSION['s'] = "o";
-                      return 'You win!';
-                } elseif ($s < $secret) {
-                      //$_SESSION['s'] =  "s";
-                      return 'Your number is smaller.';
-                } elseif ($s > $secret) {
-                      //$_SESSION['s'] =  "b";
-                      return 'You number is bigger.';
-                }
-                /*if (isset($_SESSION['n'])) {
-                  $_SESSION['n'] = $_SESSION['n'] + 1;
-                } else {
-                  $_SESSION['n'] = 1;
-                } */
-      			//return "Hello $s ";
-			//return new \atk4\ui\jsExpression('document.location = "index.php" ');
-		}
-  });
-
-  /*$a = [];
-  $m_register = new \atk4\data\Model(new \atk4\data\Persistence_Array($a));
-  $m_register->addField('name');
-
-  $f = $app->add(new \atk4\ui\Form(['segment'=>TRUE]));
-  $f->setModel($m_register);
-
- $f->onSubmit(function ($f) {
-      if ($f->model['name'] == '') {
-          return $f->error('name', "This place can't be empty.");
-      } else {
-    $s = $f->model['name'];
-    return 'Hello '.$s;
-  }
-}); */
-
-
-
-/*require 'vendor/autoload.php';
-$app = new \atk4\ui\App('Task №1');
-$app->initLayout('Centered');
-use \atk4\ui\Button;
-use \atk4\ui\Buttons;
-use \atk4\ui\Header;
-use \atk4\ui\Icon;
-use \atk4\ui\Label;
-use \atk4\ui\Template;
-use \atk4\ui\View;
-$app->layout->add('HelloWorld');
-$app->add(new Header(['Combining Buttons', 'size'=>1]));
-$button1 = new View(['ui'=>'buttons', null, 'vertical']);
-$button1->add(new Button(['Facebook','icon'=>'facebook']));
-$button1->set(['size big'=>true]);
-//$button1->set(['link'=>'https://www.facebook.com/groups/348235235572043/']);
-$button1->add(new Button(['VK', 'icon'=>'vk']));
-$button1->set(['size big'=>true]);
-$button1->add(new Button(['Shuffle', 'icon'=>'shuffle']));
-$button1->set(['size big'=>true]);
-$app->add($button1);
-$button = new Button();
-$button->set('Click me');
-$button->set(['primary' => true]);
-$button->set(['icon'=>'cubes']);
-$button->set(['size big'=>true]);
-$app->add(new Header(['Task №1', 'size'=>2]));
-//$button->on('click', function ($button) {
-    //return 'success';
-//});
-    $a = [];
-    $m_register = new \atk4\data\Model(new \atk4\data\Persistence_Array($a));
-    $m_register->addField('name');
-
-    $f = $app->add(new \atk4\ui\Form(['segment'=>TRUE]));
-    $f->setModel($m_register);
-
-	 $f->onSubmit(function ($f) {
-        if ($f->model['name'] == '') {
-            return $f->error('name', "This place can't be empty.");
-        } else {
-			$s = $f->model['name'];
-			return 'Hello '.$s;
-			//return new \atk4\ui\jsExpression('document.location = "task.php" ');
-		}
+        $max_n = $f->model['max'];
+        return new \atk4\ui\jsExpression('document.location = "index.php"', ['m' => $max_n]);
+        //return new \atk4\ui\jsExpression(['document.location = "robot.php"','m'=>$max_n]);
+      }
     });
+  } else { */
+  if (isset($_GET['r'])) {
+    $n = $_GET['n'];
+    $m = $_GET['m'];
+    $b = $_GET['b'];
+          if ($_GET['r'] == 'w') {
+            $app->add(new Header(['Your number is '.$n.' !', 'size'=>1]));
+          } elseif ($_GET['r'] == 's') {
+            $b = $n;
+            $n = round (($b + $m) / 2);
+            $app->add(new Header(['Your number is '.$n.' ?', 'size'=>1]));
+          } elseif ($_GET['r'] == 'b') {
+            $m = $n;
+            $n = round (($b + $m) / 2);
+            $app->add(new Header(['Your number is '.$n.' ?', 'size'=>1]));
+          }
+        } else {
+          $app->add(new Header(['Your number is '.$n.' ?', 'size'=>1]));
+        }
+    $button = $app->layout->add(['Button', "Yes, it's my number!",'iconRight'=>'external']);
+    $button->set(['primary'=>true]);
+    $button->set(['size big'=>true]);
+    $button->link(['index','r'=>'w','b'=>$b,'m'=>$m,'n'=>$n]);
 
-$button = $app->layout->add(['Button', 'GO TO TASK №2','iconRight'=>'external']);
-$button->link(['task','key'=>'ok']);  */
+    $button = $app->layout->add(['Button', 'No, my number is smaller.','iconRight'=>'external']);
+    $button->set(['primary'=>true]);
+    $button->set(['size big'=>true]);
+    $button->link(['index','r'=>'s','b'=>$b,'m'=>$m,'n'=>$n]);
+
+    $button = $app->layout->add(['Button', 'No, my number is bigger.','iconRight'=>'external']);
+    $button->set(['primary'=>true]);
+    $button->set(['size big'=>true]);
+    $button->link(['index','r'=>'b','b'=>$b,'m'=>$m,'n'=>$n]);
+//}
