@@ -72,4 +72,9 @@ if (!isset($_GET['r'])) {
     $button->set(['primary'=>true]);
     $button->set(['size big'=>true]);
     $button->link(['index','r'=>'b','b'=>$b,'m'=>$m,'n'=>$n]);
+
+    $button = $app->layout->add(['Button', 'Play again.','iconRight'=>'external']);
+    $button->set(['primary'=>true]);
+    $button->set(['size big'=>true]);
+    $button->link(['index']);
 //}
