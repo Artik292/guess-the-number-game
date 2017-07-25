@@ -7,25 +7,11 @@ use \atk4\ui\Header;
 $app = new \atk4\ui\App('Welcome to the game!');
 $app->initLayout('Centered');
 
-$a = [];
-$m_register = new \atk4\data\Model(new \atk4\data\Persistence_Array($a));
-$m_register->addField('max');
-$m_register->addField('min');
+$app->add(new Header(['Rules of the game', 'size'=>1]));
 
-$f = $app->add(new \atk4\ui\Form(['segment'=>TRUE]));
-$f->setModel($m_register);
+$app->add(new Header(['Max number is 100, Min number is 1.', 'size'=>1]));
 
-$f->onSubmit(function ($f) {
-    if ($f->model['min'] == '') {
-        return $f->error('min', "This place can't be empty.");
-    }
-
-    if ($f->model['max'] == '') {
-        return $f->error('max', "This place can't be empty.");
-    }
-
-  $s = $f->model['min'];
-  $b = $f->model['max'];
-  return new \atk4\ui\jsExpression(['document.location = "main.php"','s'=> $s,'b'=>$b']);
-}
-);
+$button = $app->layout->add(['Button', "Begin the game!",'iconRight'=>'smile']);
+$button->set(['primary'=>true]);
+$button->set(['size big'=>true]);
+$button->link(['main','b'=>100,'m'=>0]);
