@@ -4,12 +4,14 @@ require 'vendor/autoload.php';
 
 use \atk4\ui\Header;
 
-$n = $_GET['n'];
+$number = $_GET['number'];
 
-$app = new \atk4\ui\App(' I won, it was '.$n.' !');
+$app = new \atk4\ui\App('Добро пожаловать в игру!');
 $app->initLayout('Centered');
 
-$button = $app->layout->add(['Button', 'Play again.','iconRight'=>'refresh']);
+$app->add(['Header', ' Я выиграл, Ваше загаданное число, это '.$number.' !']);
+
+$button = $app->layout->add(['Button', 'Сыграть ещё раз.','iconRight'=>'refresh']);
 $button->set(['primary'=>true]);
 $button->set(['size big'=>true]);
-$button->link(['main','b'=>100,'m'=>0]);
+$button->link(['main','max'=>100,'min'=>0]);
