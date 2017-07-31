@@ -12,6 +12,4 @@ $app->initLayout('Centered');
 $app->add(['Header', ' Я выиграл, Ваше загаданное число, это '.$number.' !']);
 
 $button = $app->layout->add(['Button', 'Сыграть ещё раз.','iconRight'=>'refresh']);
-$button->set(['primary'=>true]);
-$button->set(['size big'=>true]);
 $button->link(['main','max'=>100,'min'=>0]);

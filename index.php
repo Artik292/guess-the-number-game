@@ -15,5 +15,4 @@ $text->addParagraph("Для игры Вам необходимо загадат�
 
 $button = $app->layout->add(['Button', "Начать игру!",'iconRight'=>'smile']);
 $button->set(['primary'=>true]);
-$button->set(['size big'=>true]);
 $button->link(['main','max'=>100,'min'=>0]);
